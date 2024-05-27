@@ -2,6 +2,7 @@
 
 import { Card } from "./card";
 import { useState } from "react";
+import styles from './cardMatrix.module.css';
 
 export enum CardState {
     Covered,
@@ -10,6 +11,7 @@ export enum CardState {
 }
 
 export type CardObj = {
+    id: number,
     path: string,
     state: CardState
 }
@@ -17,8 +19,8 @@ export type CardObj = {
 function generateCards(number: number):CardObj[]{
     const cards:CardObj[] = [];
     for(let i = 0; i < number; i++){
-        cards.push({path: `/images/card_${number}`, state: CardState.Covered});
-        cards.push({path: `/images/card_${number}`, state: CardState.Covered});
+        cards.push({id: i, path: `/images/card_${number}`, state: CardState.Covered});
+        cards.push({id: i, path: `/images/card_${number}`, state: CardState.Covered});
     }
     for (let i = 0; i < number; i++) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -34,7 +36,8 @@ export function CardMatrix({ width, height } : {width: number, height: number}) 
     function getHandler(i:number){
         const handler = () => {
             const newCards = [...cards];
-            const card = newCards[i]
+            const uncoveredCards = newCards.filter(c=>c.state===CardState.Uncovered);
+            const card = newCards[i];
             if (card.state === CardState.Covered){
                 card.state = CardState.Uncovered;
             } else if(card.state === CardState.Uncovered){
@@ -45,7 +48,19 @@ export function CardMatrix({ width, height } : {width: number, height: number}) 
         }
         return handler;
     }
+    const columns= new Array<CardObj[]>();
+    for(let i = 0; i < width ; i++){
+        columns.push([]);
+        for(let j = 0; j < height; j ++){
+            const index = i*height + j;
+            const card = cards[index];
+            columns[i].push(card);
+        }
+    }
     return (
-            cards.map((c,i)=><Card key={c.path} path={c.path} state={c.state} active={true} clickHandler={getHandler(i)} />)
+        <div className={styles.container}>
+            {columns.map((r,i)=><div key={`row_${i}`} className={styles.row}>{r.map((c,j)=><Card key={`card_${i}_${j}`} path={c.path} state={c.state} active={true} clickHandler={getHandler(i*height+j)} />)}</div>)}
+        </div>
+            
     );
 }

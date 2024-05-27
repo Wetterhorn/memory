@@ -1,11 +1,14 @@
 .back{
-    width: 100px;
-    height: 100px;
     background-color: red;
     }
 
 .removed{
-    width: 100px;
-    height: 100px;
     filter: blur(4px);
+}
+
+.card {
+    width: 10rem;
+    height: 10rem;
+    margin: 1rem;
+    cursor: pointer;
 }

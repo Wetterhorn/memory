@@ -7,7 +7,7 @@ export function Card({ path, state, active, clickHandler } : {path: string, stat
     switch(state){
         case CardState.Covered:
             return(
-                <div className={styles.back} onClick = {clickHandler}></div>
+                <div className={styles.card+' '+styles.back} onClick = {clickHandler}></div>
             )
         case CardState.Uncovered:
             return (
@@ -16,6 +16,7 @@ export function Card({ path, state, active, clickHandler } : {path: string, stat
                       alt="Memorykarte"
                       width={100}
                       height={100}
+                      className = {styles.card}
                       onClick = {clickHandler}
                 />
             );
@@ -26,7 +27,7 @@ export function Card({ path, state, active, clickHandler } : {path: string, stat
                       alt="Memorykarte"
                       width={100}
                       height={100}
-                      className = {styles.removed}
+                      className = {styles.card+' '+styles.removed}
                 />
             );
     }
