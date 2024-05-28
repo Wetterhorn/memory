@@ -12,7 +12,7 @@ export function Card({ path, state, active, clickHandler } : {path: string, stat
         case CardState.Uncovered:
             return (
                 <Image
-                      src="/images/papagei.png"
+                      src={path}
                       alt="Memorykarte"
                       width={100}
                       height={100}
@@ -23,7 +23,7 @@ export function Card({ path, state, active, clickHandler } : {path: string, stat
         case CardState.Removed:
             return (
                 <Image
-                      src="/images/papagei.png"
+                      src={path}
                       alt="Memorykarte"
                       width={100}
                       height={100}
