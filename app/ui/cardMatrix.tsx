@@ -48,18 +48,18 @@ export function CardMatrix({ width, height } : {width: number, height: number}) 
         }
         return handler;
     }
-    const columns= new Array<CardObj[]>();
+    const rows= new Array<CardObj[]>();
     for(let i = 0; i < width ; i++){
-        columns.push([]);
+        rows.push([]);
         for(let j = 0; j < height; j ++){
             const index = i*height + j;
             const card = cards[index];
-            columns[i].push(card);
+            rows[i].push(card);
         }
     }
     return (
         <div className={styles.container}>
-            {columns.map((r,i)=><div key={`row_${i}`} className={styles.row}>{r.map((c,j)=><Card key={`card_${i}_${j}`} path={c.path} state={c.state} active={true} clickHandler={getHandler(i*height+j)} />)}</div>)}
+            {rows.map((r,i)=><div key={`row_${i}`} className={styles.row}>{r.map((c,j)=><Card key={`card_${i}_${j}`} path={c.path} state={c.state} active={true} clickHandler={getHandler(i*height+j)} />)}</div>)}
         </div>
             
     );
