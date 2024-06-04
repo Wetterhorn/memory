@@ -3,6 +3,7 @@
 import { Card } from "./card";
 import { useState } from "react";
 import styles from './cardMatrix.module.css';
+import { Score } from "./score";
 
 export enum CardState {
     Covered,
@@ -15,7 +16,12 @@ export type CardObj = {
     path: string,
     state: CardState,
     index: number,
-    player: Player.neutral
+    player: Player
+}
+
+export type GameState = {
+    player1: number,
+    player2: number
 }
 
 export enum Player {
@@ -42,6 +48,7 @@ function generateCards(number: number):CardObj[]{
 export function CardMatrix({ width, height } : {width: number, height: number}) {
     const [cards, setCards] = useState(generateCards(width*height/2));
     const [player, setPlayer] = useState(Player.one);
+    const [gameState, setGameState] = useState({player1:0, player2: 0});
     function getHandler(i:number){
         const handler = () => {
             const newCards = [...cards];
@@ -60,11 +67,20 @@ export function CardMatrix({ width, height } : {width: number, height: number}) 
                     }
 
                 } else if(uncoveredCards.length < 2){
-                    if(uncoveredCards.length ==1 && card.id == uncoveredCards[0].id){
+                    if(uncoveredCards.length ==1){
+                        if (card.id == uncoveredCards[0].id){
                         card.state = CardState.Removed;
                         uncoveredCards[0].state=CardState.Removed;
-                    }
-                    else card.state = CardState.Uncovered;
+                        card.player = player;
+                        uncoveredCards[0].player=player;
+                        if (card.player == Player.one) setGameState({player1: gameState.player1+1, player2: gameState.player2});
+                        else setGameState({player1: gameState.player1, player2: gameState.player2+1});
+                        }else{
+                            if (player == Player.one) setPlayer (Player.two);
+                            else setPlayer(Player.one);
+                        }
+
+                    }else card.state = CardState.Uncovered;
                     
                 }
             } else if(card.state === CardState.Uncovered && uncoveredCards.length == 2){
@@ -87,9 +103,12 @@ export function CardMatrix({ width, height } : {width: number, height: number}) 
         }
     }
     return (
-        <div className={styles.container}>
-            {rows.map((r,i)=><div key={`row_${i}`} className={styles.row}>{r.map((c,j)=><Card key={`card_${i}_${j}`} path={c.path} state={c.state} clickHandler={getHandler(i*height+j)} />)}</div>)}
-        </div>
+        <>
+            <Score gameState={gameState} player = {player}/>
+            <div className={styles.container}>
+                {rows.map((r,i)=><div key={`row_${i}`} className={styles.row}>{r.map((c,j)=><Card key={`card_${i}_${j}`} path={c.path} state={c.state} player={c.player} clickHandler={getHandler(i*height+j)} />)}</div>)}
+            </div>
+        </>
             
     );
 }

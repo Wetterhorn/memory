@@ -3,7 +3,22 @@
     }
 
 .removed{
-    filter: blur(4px);
+}
+
+.neutral{
+}
+
+.one,.two{
+    border-style: solid;
+    border-width: 0.25rem;     
+}
+
+.one{
+    border-color: red;
+}
+
+.two{
+    border-color: blue;
 }
 
 .card {

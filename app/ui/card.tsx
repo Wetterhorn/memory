@@ -1,9 +1,19 @@
 import Image from "next/image";
-import { CardState} from "./cardMatrix";
+import { CardState, Player} from "./cardMatrix";
 import styles from './card.module.css';
 import { MouseEventHandler } from "react";
 
-export function Card({ path, state, clickHandler } : {path: string, state: CardState, clickHandler: MouseEventHandler<HTMLImageElement> }) {
+export function Card({ path, state, player, clickHandler } : {path: string, state: CardState, player: Player,  clickHandler: MouseEventHandler<HTMLImageElement> }) {
+    var p = styles.neutral;
+    switch(player){
+        case Player.one:
+            p = styles.one;
+            break;
+        case Player.two:
+            p = styles.two;
+            break;
+
+    }
     switch(state){
         case CardState.Covered:
             return(
@@ -16,7 +26,7 @@ export function Card({ path, state, clickHandler } : {path: string, state: CardS
                       alt="Memorykarte"
                       width={100}
                       height={100}
-                      className = {styles.card}
+                      className = {styles.card+" "+p}
                       onClick = {clickHandler}
                 />
             );
@@ -27,7 +37,7 @@ export function Card({ path, state, clickHandler } : {path: string, state: CardS
                       alt="Memorykarte"
                       width={100}
                       height={100}
-                      className = {styles.card+' '+styles.removed}
+                      className = {styles.card+' '+styles.removed+" "+p}
                 />
             );
     }
