@@ -14,14 +14,21 @@ export type CardObj = {
     id: number,
     path: string,
     state: CardState,
-    index: number
+    index: number,
+    player: Player.neutral
+}
+
+export enum Player {
+    neutral,
+    one,
+    two
 }
 
 function generateCards(number: number):CardObj[]{
     const cards:CardObj[] = [];
     for(let i = 0; i < number; i++){
-        cards.push({id: i, path: `/images/card_${i}.jpg`, state: CardState.Covered, index: 0});
-        cards.push({id: i, path: `/images/card_${i}.jpg`, state: CardState.Covered, index: 0});
+        cards.push({id: i, path: `/images/card_${i}.jpg`, state: CardState.Covered, index: 0, player: Player.neutral});
+        cards.push({id: i, path: `/images/card_${i}.jpg`, state: CardState.Covered, index: 0, player: Player.neutral});
     }
     for (let i = 0; i < 2*number; i++) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -34,6 +41,7 @@ function generateCards(number: number):CardObj[]{
 
 export function CardMatrix({ width, height } : {width: number, height: number}) {
     const [cards, setCards] = useState(generateCards(width*height/2));
+    const [player, setPlayer] = useState(Player.one);
     function getHandler(i:number){
         const handler = () => {
             const newCards = [...cards];
@@ -80,7 +88,7 @@ export function CardMatrix({ width, height } : {width: number, height: number}) 
     }
     return (
         <div className={styles.container}>
-            {rows.map((r,i)=><div key={`row_${i}`} className={styles.row}>{r.map((c,j)=><Card key={`card_${i}_${j}`} path={c.path} state={c.state} active={true} clickHandler={getHandler(i*height+j)} />)}</div>)}
+            {rows.map((r,i)=><div key={`row_${i}`} className={styles.row}>{r.map((c,j)=><Card key={`card_${i}_${j}`} path={c.path} state={c.state} clickHandler={getHandler(i*height+j)} />)}</div>)}
         </div>
             
     );

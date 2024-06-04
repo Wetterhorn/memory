@@ -1,9 +1,9 @@
 import Image from "next/image";
-import { CardState } from "./cardMatrix";
+import { CardState} from "./cardMatrix";
 import styles from './card.module.css';
 import { MouseEventHandler } from "react";
 
-export function Card({ path, state, active, clickHandler } : {path: string, state: CardState, active: boolean, clickHandler: MouseEventHandler<HTMLImageElement> }) {
+export function Card({ path, state, clickHandler } : {path: string, state: CardState, clickHandler: MouseEventHandler<HTMLImageElement> }) {
     switch(state){
         case CardState.Covered:
             return(
