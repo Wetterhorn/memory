@@ -1,4 +1,4 @@
-import { GameState, Player } from "./cardMatrix";
+import { GameState, Player } from "../lib/definitions";
 import styles from "./score.module.css";
 
 export function Score ({gameState, player}:{gameState:GameState, player: Player}){

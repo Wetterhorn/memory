@@ -1,7 +1,8 @@
-import { CardMatrix } from "./ui/cardMatrix";
+import { Game } from "./ui/game";
+
 
 export default function Home() {
   return (
-    <CardMatrix width={4} height={4}/>
+    <Game width={4} height={4}/>
   );
 }

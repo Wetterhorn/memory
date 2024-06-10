@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { CardState, Player} from "./cardMatrix";
+import { CardState, Player } from "../lib/definitions";
 import styles from './card.module.css';
 import { MouseEventHandler } from "react";
 
