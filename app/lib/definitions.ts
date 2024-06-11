@@ -17,7 +17,14 @@ export type CardObj = {
 
 export type GameState = {
     player1: number,
-    player2: number
+    player2: number,
+    state: PlayerAdvice
+}
+
+export enum PlayerAdvice {
+    Start,
+    Game,
+    End
 }
 
 export enum Player {
