@@ -1,10 +1,11 @@
-import { Card } from "./card";
+import Card from "./card";
 import styles from './cardMatrix.module.css';
 
 import { CardObj} from "../lib/definitions";
 
 
-export function CardMatrix({ width, height, cards } : {width: number, height: number, cards: CardObj[]}) {
+export default function CardMatrix({ width, height, cards} : {width: number, height: number, cards: CardObj[]}) {
+    //const Card = dynamic(() => import('./card'), { ssr: false })
     const rows= new Array<CardObj[]>();
     for(let i = 0; i < height ; i++){
         rows.push([]);

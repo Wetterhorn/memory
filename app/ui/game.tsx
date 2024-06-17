@@ -1,12 +1,14 @@
 'use client'
 
+
 import { useRef, useState } from "react";
 import { CardObj, CardState, Player, GameState, PlayerAdvice } from "../lib/definitions";
-import { Score } from "./score";
-import { CardMatrix } from "./cardMatrix";
-import { PlayAdviceButton } from "./playAdviceButton";
+import Score  from "./score";
+import CardMatrix  from "./cardMatrix";
+import PlayAdviceButton  from "./playAdviceButton";
 
-export function Game({ width, height } : {width: number, height: number}){
+
+export default function Game({ width, height } : {width: number, height: number}){
     const [cards, setCards] = useState(generateCards(width*height/2));
     const [player, _setPlayer] = useState(Player.one);
     const playerRef = useRef(player);
@@ -20,7 +22,7 @@ export function Game({ width, height } : {width: number, height: number}){
         gameStateRef.current = gs;
         _setGameState(gs);
     }
-
+    
     function getHandler(i:number){
         const handler = () => {
             const newCards = [...cards];
@@ -83,8 +85,9 @@ export function Game({ width, height } : {width: number, height: number}){
     }
 
     function restart (){
-    setCards (generateCards(cards.length/2))
+        location.reload();
     }
+    
     function generateCards(number: number):CardObj[]{
         const cards:CardObj[] = [];
         for(let i = 0; i < number; i++){
@@ -102,6 +105,7 @@ export function Game({ width, height } : {width: number, height: number}){
         }
         return cards;
     }
+    if(cards.length == 0) return;
     return (
         <>
             <Score gameState={gameState} player = {player}/>

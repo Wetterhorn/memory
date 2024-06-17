@@ -1,7 +1,7 @@
 import { GameState, Player } from "../lib/definitions";
 import styles from "./score.module.css";
 
-export function Score ({gameState, player}:{gameState:GameState, player: Player}){
+export default function Score ({gameState, player}:{gameState:GameState, player: Player}){
     return (
         <div>
             <div className = {player == Player.one? styles.player1: styles.neutral}>Player one:{gameState.player1} </div>

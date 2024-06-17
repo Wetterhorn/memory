@@ -2,7 +2,7 @@ import { MouseEventHandler } from "react";
 import { PlayerAdvice } from "../lib/definitions";
 import styles from "./playAdviceButton.module.css";
 
-export function PlayAdviceButton ({state, clickHandler}:{state:PlayerAdvice, clickHandler: MouseEventHandler<HTMLImageElement>}){
+export default function PlayAdviceButton ({state, clickHandler}:{state:PlayerAdvice, clickHandler: MouseEventHandler<HTMLImageElement>}){
     let text = ""
     switch (state){
         case PlayerAdvice.Start: text = "START";
